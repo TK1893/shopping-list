@@ -1,0 +1,1 @@
+https://careerfoundry.com/en/steps/real-time-apps#querying-a-firestore-database:~:text=The%20object%20being%20added%20will%20also%20have%20whatever%20returned%20from%20...docObject.data()%20(using%20the%20...%20operator%2C%20the%20properties%20of%20docObject.data()%20will%20be%20spread%20out).
