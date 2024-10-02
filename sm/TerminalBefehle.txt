@@ -36,6 +36,79 @@ git branch -M main
 git push -u origin main
 npm run deploy
 
+----------------------------------------------
+(6) App starten
+----------------------------------------------
+npm run start 
+
+----------------------------------------------
+(7) Test starten
+----------------------------------------------
+cd meet 
+npm run test
+
+----------------------------------------------
+(8) Wechseln zum main Branch
+----------------------------------------------
+git checkout main
+
+----------------------------------------------
+(9) Erstellen eines neuen Branches
+----------------------------------------------
+git checkout -b NEW_BRANCH_NAME
+
+----------------------------------------------
+(10) Überprüfen des aktuellen Branches
+----------------------------------------------
+git branch
+
+----------------------------------------------
+(11) Änderungen hinzufügen und committen
+----------------------------------------------
+git add .
+git commit -m "Your commit message"
+
+----------------------------------------------
+(12) Pushen des neuen Branches zu GitHub
+----------------------------------------------
+git push -u origin NEW_BRANCH_NAME
+
+----------------------------------------------
+(13) KOMBIBEFEHL (9) (11) (12)
+----------------------------------------------
+git checkout -b NEW_BRANCH_NAME
+git add .
+git commit -m "Your commit message"
+git push -u origin NEW_BRANCH_NAME
+------------------------------------
+git checkout -b Ex-5-3-01
+git add .
+git commit -m "Update Meet"
+git push -u origin Ex-5-3-01
+
+----------------------------------------------
+(14) Mergen (zusammenführen) eines branches in main branch
+----------------------------------------------
+git checkout main
+-
+git pull origin main // Hole die neuesten Änderungen aus dem entfernten Repository (falls nötig)
+-
+git merge Ex-4-7
+git add .
+git commit -m "Update Meet App Ex.4-7"
+git push origin main
+
+-------------------------------------------------
+(15) Überprüfen der Testabdeckung (Test Coverage)
+-------------------------------------------------
+npm test -- --coverage
+
+-------------------------------------------------
+(16) Tests nur in festgelegten Ordner ausführen
+-------------------------------------------------
+npm run test -- --testMatch ="./src/features/*.test.js"
+
+
 
 Erklärung der Befehle & Begriffe
 **********************************************
@@ -80,76 +153,3 @@ npm steht für Node Package Manager, und run deploy führt das Skript mit dem Na
 Die genaue Aktion dieses Befehls hängt davon ab, was im deploy Skript definiert ist. 
 In vielen Fällen wird dieses Skript verwendet, um die Anwendung auf einem Server zu veröffentlichen 
 oder zu aktualisieren.
-
-----------------------------------------------
-(6) App starten
-----------------------------------------------
-cd meet 
-npm run start 
-
-----------------------------------------------
-(7) Test starten
-----------------------------------------------
-cd meet 
-npm run test
-
-----------------------------------------------
-(8) Wechseln zum main Branch
-----------------------------------------------
-git checkout main
-
-----------------------------------------------
-(9) Erstellen eines neuen Branches
-----------------------------------------------
-git checkout -b NEW_BRANCH_NAME
-
-----------------------------------------------
-(10) Überprüfen des aktuellen Branches
-----------------------------------------------
-git branch
-
-----------------------------------------------
-(11) Änderungen hinzufügen und committen
-----------------------------------------------
-git add .
-git commit -m "Your commit message"
-
-----------------------------------------------
-(12) Pushen des neuen Branches zu GitHub
-----------------------------------------------
-git push -u origin NEW_BRANCH_NAME
-
-----------------------------------------------
-(13) KOMBIBEFEHL (9) (11) (12)
-----------------------------------------------
-git checkout -b NEW_BRANCH_NAME
-git add .
-git commit -m "Your commit message"
-git push -u origin NEW_BRANCH_NAME
-------------------------------------
-git checkout -b Ex-4-10-Master-01
-git add .
-git commit -m "Update Meet"
-git push -u origin Ex-4-10-Master-01
-
-----------------------------------------------
-(14) Mergen (zusammenführen) eines branches in main branch
-----------------------------------------------
-git checkout main
--
-git pull origin main // Hole die neuesten Änderungen aus dem entfernten Repository (falls nötig)
--
-git merge Ex-4-7
-git add .
-git commit -m "Update Meet App Ex.4-7"
-git push origin main
-
--------------------------------------------------
-(15) Überprüfen der Testabdeckung (Test Coverage)
--------------------------------------------------
-npm test -- --coverage
-
--------------------------------------------------
-(16) Tests nur in festgelegten Ordner ausführen
--------------------------------------------------
-npm run test -- --testMatch ="./src/features/*.test.js"
