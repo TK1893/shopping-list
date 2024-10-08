@@ -7,8 +7,8 @@ import { getFirestore } from 'firebase/firestore';
 // import the screens
 import ShoppingLists from './components/ShoppingLists';
 import Welcome from './components/Welcome';
-import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import { LogBox } from 'react-native';
+LogBox.ignoreLogs(['AsyncStorage has been extracted from']);
 
 // Create the navigator
 const Stack = createNativeStackNavigator();
@@ -29,17 +29,10 @@ const App = () => {
   // Initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app);
 
-  // Initialize Auth with AsyncStorage persistence
-  const auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage),
-  });
-
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen name="Welcome">
-          {(props) => <Welcome auth={auth} {...props} />}
-        </Stack.Screen>
+        <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="ShoppingLists">
           {(props) => <ShoppingLists db={db} {...props} />}
         </Stack.Screen>

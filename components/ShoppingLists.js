@@ -11,10 +11,18 @@ import {
   Platform,
   Alert,
 } from 'react-native';
-import { collection, getDocs, addDoc, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  where,
+} from 'firebase/firestore';
 
 // SHOPPING-LISTS KOMPONENTE
-const ShoppingLists = ({ db }) => {
+const ShoppingLists = ({ db, route }) => {
+  const { userID } = route.params;
+
   // STATE VARIABLES
   const [lists, setLists] = useState([]);
   const [listName, setListName] = useState('');
@@ -22,17 +30,34 @@ const ShoppingLists = ({ db }) => {
   const [item2, setItem2] = useState('');
 
   // "FETCH-SHOPPING-LISTS" FUNCTION
-  const fetchShoppingLists = async () => {
-    const listsDocuments = await getDocs(collection(db, 'shoppinglists'));
-    let newLists = [];
-    listsDocuments.forEach((docObject) => {
-      newLists.push({ id: docObject.id, ...docObject.data() });
-    });
-    setLists(newLists);
-  };
+  // const fetchShoppingLists = async () => {
+  //   const listsDocuments = await getDocs(collection(db, 'shoppinglists'));
+  //   let newLists = [];
+  //   listsDocuments.forEach((docObject) => {
+  //     newLists.push({ id: docObject.id, ...docObject.data() });
+  //   });
+  //   setLists(newLists);
+  // };
+  // useEffect(() => {}, [JSON.stringify(lists)]); // oder [`${lists}`]
+
   useEffect(() => {
-    fetchShoppingLists();
-  }, [JSON.stringify(lists)]);
+    const q = query(
+      collection(db, 'shoppinglists'),
+      where('uid', '==', userID)
+    );
+    const unsubShoppinglists = onSnapshot(q, (documentsSnapshot) => {
+      let newLists = [];
+      documentsSnapshot.forEach((doc) => {
+        newLists.push({ id: doc.id, ...doc.data() });
+      });
+      setLists(newLists);
+    });
+
+    // Clean up code
+    return () => {
+      if (unsubShoppinglists) unsubShoppinglists();
+    };
+  }, []);
 
   // "ADD-SHOPPING-LIST" FUNCTION
   const addShoppingList = async (newList) => {
@@ -81,6 +106,7 @@ const ShoppingLists = ({ db }) => {
           style={styles.addButton}
           onPress={() => {
             const newList = {
+              uid: userID,
               name: listName,
               items: [item1, item2],
             };
