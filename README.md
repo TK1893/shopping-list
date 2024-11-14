@@ -9,6 +9,9 @@ A simple mobile application built with React Native for managing shopping lists,
 - [Usage](#usage)
 - [Components](#components)
 - [Packages](#packages)
+- [Contributing](#contributing)
+- [License](#license)
+- [Author](#author)
 
 ---
 
@@ -103,13 +106,33 @@ Upon launching the app, the user will be greeted with a "Welcome" screen. They c
 
 ## Packages
 
-- **`@react-navigation/native`** - React Navigation library for handling screen transitions.
-- **`@react-navigation/native-stack`** - Native stack navigator for React Navigation.
-- **`firebase`** - Firebase SDK for authentication and Firestore integration.
-- **`@react-native-community/netinfo`** - Library to monitor network status in a React Native app.
-- **`@react-native-async-storage/async-storage`** - Local storage library for saving and retrieving data.
-- **`react-native`** - Core React Native library.
-- **`react-native-gesture-handler`** - Gesture handling library for better user experience in React Native.
+### **`@react-navigation/native`**
+
+React Navigation library for handling screen transitions.
+
+### `@react-navigation/native-stack`
+
+Native stack navigator for React Navigation.
+
+### **`firebase`**
+
+Firebase SDK for authentication and Firestore integration.
+
+### **`@react-native-community/netinfo`**
+
+Library to monitor network status in a React Native app.
+
+### **`@react-native-async-storage/async-storage`**
+
+Local storage library for saving and retrieving data.
+
+### **`react-native`**
+
+Core React Native library.
+
+### **`react-native-gesture-handler`**
+
+Gesture handling library for better user experience in React Native.
 
 ---
 
@@ -118,6 +141,7 @@ Upon launching the app, the user will be greeted with a "Welcome" screen. They c
 If you'd like to contribute to this project, feel free to fork the repository and submit a pull request. Make sure to follow standard coding practices and write clear commit messages.
 
 1.  Fork the repository.
+
 2.  Create a new branch (`git checkout -b feature-name`).
 3.  Make your changes.
 4.  Commit your changes (`git commit -am 'Add feature'`).
