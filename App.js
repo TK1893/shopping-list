@@ -1,19 +1,29 @@
 // import react Navigation
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-// Import Firebase
-import { initializeApp } from 'firebase/app';
-import { getFirestore } from 'firebase/firestore';
-// import the screens
-import ShoppingLists from './components/ShoppingLists';
-import Welcome from './components/Welcome';
-import { initializeAuth, getReactNativePersistence } from 'firebase/auth';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Create the navigator
 const Stack = createNativeStackNavigator();
 
+import { initializeApp } from 'firebase/app';
+import {
+  getFirestore,
+  disableNetwork,
+  enableNetwork,
+} from 'firebase/firestore';
+
+// import the screens
+import ShoppingLists from './components/ShoppingLists';
+import Welcome from './components/Welcome';
+import { useNetInfo } from '@react-native-community/netinfo';
+import { useEffect, useState } from 'react';
+
+import { Alert, LogBox } from 'react-native';
+LogBox.ignoreLogs(['AsyncStorage has been extracted from']);
+
 const App = () => {
+  const connectionStatus = useNetInfo();
+
   const firebaseConfig = {
     apiKey: 'AIzaSyAR2iHygEbKEhm7r2kG06OhNA1yvM5ckBI',
     authDomain: 'shopping-list-b2302.firebaseapp.com',
@@ -29,19 +39,27 @@ const App = () => {
   // Initialize Cloud Firestore and get a reference to the service
   const db = getFirestore(app);
 
-  // Initialize Auth with AsyncStorage persistence
-  const auth = initializeAuth(app, {
-    persistence: getReactNativePersistence(AsyncStorage),
-  });
+  useEffect(() => {
+    if (connectionStatus.isConnected === false) {
+      Alert.alert('Connection Lost!!');
+      disableNetwork(db);
+    } else if (connectionStatus.isConnected === true) {
+      enableNetwork(db);
+    }
+  }, [connectionStatus.isConnected]);
 
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Welcome">
-        <Stack.Screen name="Welcome">
-          {(props) => <Welcome auth={auth} {...props} />}
-        </Stack.Screen>
+        <Stack.Screen name="Welcome" component={Welcome} />
         <Stack.Screen name="ShoppingLists">
-          {(props) => <ShoppingLists db={db} {...props} />}
+          {(props) => (
+            <ShoppingLists
+              isConnected={connectionStatus.isConnected}
+              db={db}
+              {...props}
+            />
+          )}
         </Stack.Screen>
       </Stack.Navigator>
     </NavigationContainer>
