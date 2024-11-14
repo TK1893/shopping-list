@@ -1,3 +1,5 @@
+// components\Welcome.js
+
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import { getAuth, signInAnonymously } from 'firebase/auth';
 
